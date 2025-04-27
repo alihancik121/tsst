@@ -12,16 +12,16 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
       meta: [
-        { name: 'description', content: description },
+        { name: 'description', content: 'for some skids' },
         { name: 'keywords', content: 'yungouzo' },
         { name: 'robots', content: 'index, follow' },
         { name: 'theme-color', content: '#5865F2' },
-        { property: 'og:title', content: title },
+        { property: 'og:title', content: 'token checker' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:description', content: description },
+        { property: 'og:description', content: 'for some skids' },
         { name: 'twitter:card', content: 'summary' },
-        { name: 'twitter:title', content: title },
-        { name: 'twitter:description', content: description },
+        { name: 'twitter:title', content: 'token checker' },
+        { name: 'twitter:description', content: 'for some skids' },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
@@ -52,13 +52,13 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      ANALYTICS_URL: process.env.ANALYTICS_URL,
+      ANALYTICS_URL: process.env.ANALYTICS_URL || '',
       GATEWAY_URL: process.env.GATEWAY_URL || 'https://discord.com/api/v9',
     },
   },
 
   nitro: {
-    preset: 'vercel',
+    preset: 'vercel-edge'
   },
 
   experimental: {
