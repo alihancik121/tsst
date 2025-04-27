@@ -1,7 +1,12 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config';
+
 const title = 'token checker';
 const description = 'for some skids';
 
 export default defineNuxtConfig({
+  ssr: true,
+  
   app: {
     head: {
       charset: 'utf-8',
@@ -53,8 +58,7 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'vercel-edge',
-    serveStatic: true
+    preset: 'vercel',
   },
 
   experimental: {
