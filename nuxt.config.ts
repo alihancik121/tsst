@@ -31,6 +31,8 @@ export default defineNuxtConfig({
   },
 
   tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config.ts',
     viewer: false,
   },
 
@@ -51,6 +53,13 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'vercel-edge'
+    preset: 'vercel'
+  },
+
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   }
 });

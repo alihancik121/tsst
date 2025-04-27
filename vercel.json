@@ -1,8 +1,19 @@
 {
   "version": 2,
-  "buildCommand": "NITRO_PRESET=vercel-edge npx nuxt build",
-  "outputDirectory": ".output",
+  "builds": [
+    {
+      "src": "nuxt.config.ts",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
+    {
+      "src": "/_nuxt/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "continue": true
+    },
     {
       "src": "/(.*)",
       "dest": "/"
