@@ -23,6 +23,5 @@
     { "src": "/(.*)", "dest": "/" }
   ],
   "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "framework": "nuxt"
+  "devCommand": "npm run dev"
 } 
