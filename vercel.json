@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "./.output/server/index.mjs",
+      "src": "nuxt.config.ts",
       "use": "@vercel/node"
     }
   ],
@@ -15,11 +15,18 @@
       "continue": true
     },
     {
+      "src": "/sw.js",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "continue": true
+    },
+    {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "./.output/server/index.mjs"
+      "dest": "/"
     }
   ]
 } 
