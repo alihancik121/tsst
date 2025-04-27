@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "nuxt.config.ts",
+      "use": "@vercel/node",
+      "config": {
+        "nodeVersion": "18.x"
+      }
+    }
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": ".output",
+  "devCommand": "npm run dev"
+} 
