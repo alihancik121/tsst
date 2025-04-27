@@ -6,17 +6,7 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/_nuxt/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "continue": true
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
-  ]
+  "buildCommand": "NITRO_PRESET=vercel-edge nuxt build",
+  "devCommand": "nuxt dev",
+  "framework": null
 } 

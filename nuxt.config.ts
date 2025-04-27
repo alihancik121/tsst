@@ -53,7 +53,12 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'vercel'
+    preset: 'vercel-edge',
+    serveStatic: true
+  },
+
+  experimental: {
+    payloadExtraction: false
   },
 
   postcss: {
