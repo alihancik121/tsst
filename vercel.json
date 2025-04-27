@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "builds": [
+  "buildCommand": "NITRO_PRESET=vercel-edge npx nuxt build",
+  "outputDirectory": ".output",
+  "routes": [
     {
-      "src": "./.output/**/*",
-      "use": "@vercel/static"
+      "src": "/(.*)",
+      "dest": "/"
     }
-  ],
-  "buildCommand": "NITRO_PRESET=vercel-edge npm run build",
-  "framework": "nuxt",
-  "ignoreCommand": "if [ \"$VERCEL_ENV\" = \"production\" ]; then exit 1; fi"
+  ]
 } 
