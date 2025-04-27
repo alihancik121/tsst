@@ -2,14 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "nuxt.config.ts",
-      "use": "@vercel/node",
-      "config": {
-        "nodeVersion": "18.x"
-      }
+      "src": "./.output/**/*",
+      "use": "@vercel/static"
     }
   ],
-  "buildCommand": "npm run build",
-  "outputDirectory": ".output",
-  "devCommand": "npm run dev"
+  "buildCommand": "NITRO_PRESET=vercel-edge npm run build",
+  "framework": "nuxt",
+  "ignoreCommand": "if [ \"$VERCEL_ENV\" = \"production\" ]; then exit 1; fi"
 } 

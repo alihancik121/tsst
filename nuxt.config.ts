@@ -50,5 +50,9 @@ export default defineNuxtConfig({
     },
   },
 
+  nitro: {
+    preset: 'vercel-edge'
+  },
+
   compatibilityDate: '2025-04-27',
 });
