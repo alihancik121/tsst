@@ -2,6 +2,9 @@ const title = 'token checker';
 const description = 'for some skids';
 
 export default defineNuxtConfig({
+  nitro: {
+    preset: 'vercel'
+  },
   app: {
     head: {
       charset: 'utf-8',
